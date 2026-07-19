@@ -1,34 +1,26 @@
-# Contributing to Auction Hub
+# Contributing to BidBattle
 
-First of all, thank you for considering contributing to **Auction Hub**! 🎉
+Thank you for your interest in contributing to **BidBattle**.
 
-We welcome contributions that improve the project, fix bugs, enhance documentation, or introduce new features.
+We appreciate contributions that improve functionality, fix bugs, enhance documentation, or introduce new features.
 
 ---
 
 ## Getting Started
 
-1. Fork the repository.
-
-2. Clone your fork.
+Clone the repository
 
 ```bash
-git clone https://github.com/your-username/Auction-Hub.git
+git clone https://github.com/aiengineer75-max/Auction-Hub.git
 ```
 
-3. Navigate to the project.
-
-```bash
-cd Auction-Hub
-```
-
-4. Install dependencies.
+Install dependencies
 
 ```bash
 npm install
 ```
 
-5. Start the development server.
+Run the application
 
 ```bash
 npm run dev
@@ -36,83 +28,53 @@ npm run dev
 
 ---
 
-## Development Guidelines
+## Contribution Guidelines
 
-- Write clean and maintainable code.
 - Follow the existing project structure.
-- Use meaningful commit messages.
-- Test your changes before submitting.
-- Keep pull requests focused on a single feature or fix.
+- Write clean and readable code.
+- Test your changes before creating a pull request.
+- Keep commits descriptive.
 
----
-
-## Branch Naming
-
-Examples:
+Example:
 
 ```
-feature/add-payment-page
-feature/live-bidding
-bugfix/login-error
-docs/update-readme
+feat: Add auction countdown timer
+
+fix: Resolve login validation
+
+docs: Improve README
 ```
 
 ---
 
-## Commit Message Format
+## Pull Requests
 
-```
-feat: Add shipment tracking page
+Please ensure:
 
-fix: Resolve bidding issue
-
-docs: Update installation guide
-
-style: Improve dashboard UI
-
-refactor: Optimize auction components
-```
-
----
-
-## Pull Request Checklist
-
-- Code compiles successfully
+- Project builds successfully
 - No console errors
-- Project builds correctly
-- Documentation updated if needed
-- Changes tested
+- Code is documented
+- UI remains responsive
 
 ---
 
-## Reporting Issues
+## Reporting Bugs
 
 Please include:
 
-- Description
+- Browser
 - Steps to reproduce
 - Expected behavior
 - Screenshots (if applicable)
-- Browser information
 
 ---
 
 ## Feature Requests
 
-Suggestions are always welcome.
+Open an Issue with:
 
-Open an Issue describing:
-
-- Problem
-- Proposed Solution
+- Feature description
 - Benefits
+- Possible implementation
 
----
-
-## Code of Conduct
-
-Please be respectful and constructive.
-
-Let's build something amazing together.
-
-❤️ Happy Coding!
+Happy Coding! 🚀
