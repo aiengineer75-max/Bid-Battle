@@ -9,14 +9,17 @@ interface AIChatBotProps {
 
 export default function AIChatBot({ onNavigateToView }: AIChatBotProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<SupportMessage[]>([
-    {
-      id: 'welcome',
-      text: "Hi Rabia! How can I help you today? I can help you place bids, track shipments, handle payments, or answer frequently asked questions.",
-      sender: 'bot',
-      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-    }
-  ]);
+  const [messages, setMessages] = useState<SupportMessage[]>(() => {
+    const currentUserName = localStorage.getItem('bidbattle_username') || 'Rabia';
+    return [
+      {
+        id: 'welcome',
+        text: `Hi ${currentUserName}! How can I help you today? I can help you place bids, track shipments, handle payments, or answer frequently asked questions.`,
+        sender: 'bot',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }
+    ];
+  });
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
@@ -34,7 +37,7 @@ export default function AIChatBot({ onNavigateToView }: AIChatBotProps) {
     }
   }, [messages, isTyping]);
 
-  const handleSendMessage = (text: string) => {
+  const handleSendMessage = async (text: string) => {
     if (!text.trim()) return;
 
     // User message
@@ -45,12 +48,44 @@ export default function AIChatBot({ onNavigateToView }: AIChatBotProps) {
       time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
-    setMessages(prev => [...prev, userMsg]);
+    const updatedMessages = [...messages, userMsg];
+    setMessages(updatedMessages);
     setInputText('');
     setIsTyping(true);
 
-    // Simulate AI thinking and typing response
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          message: text,
+          history: messages.slice(-10), // Send last 10 messages for context
+          username: localStorage.getItem('bidbattle_username') || 'Rabia'
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Server returned an error');
+      }
+
+      const data = await response.json();
+      if (!data.text) {
+        throw new Error('Empty response from AI');
+      }
+
+      const botMsg: SupportMessage = {
+        id: `b_${Date.now()}`,
+        text: data.text,
+        sender: 'bot',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+      setMessages(prev => [...prev, botMsg]);
+    } catch (error) {
+      console.warn('Real Gemini API failed or is unconfigured, falling back to static support engine:', error);
+      
+      // Fallback response builder
       let responseText = "I'm not quite sure about that request. Could you please rephrase or pick one of our support topics?";
       const cleaned = text.toLowerCase();
 
@@ -65,7 +100,8 @@ export default function AIChatBot({ onNavigateToView }: AIChatBotProps) {
       } else if (cleaned.includes('premium') || cleaned.includes('membership') || cleaned.includes('upgrade')) {
         responseText = "Upgrading to a Premium Member unlocks lower commission fees (2% instead of 10%), exclusive early access to ultra-luxury VIP lots (like the Patek Philippe 5711 or Tesla Model S Plaid), and 24/7 dedicated support. Click 'Upgrade Now' in the bottom-left of the sidebar to join!";
       } else if (cleaned.includes('hello') || cleaned.includes('hi ') || cleaned.includes('hey')) {
-        responseText = "Hello Rabia! How can I assist you with your auctions today? 😊";
+        const currentUserName = localStorage.getItem('bidbattle_username') || 'Rabia';
+        responseText = `Hello ${currentUserName}! How can I assist you with your auctions today? 😊`;
       } else {
         // Try to match with FAQ questions
         const matchedFAQ = mockFAQ.find(f => cleaned.includes(f.q.toLowerCase()) || f.q.toLowerCase().includes(cleaned));
@@ -80,10 +116,10 @@ export default function AIChatBot({ onNavigateToView }: AIChatBotProps) {
         sender: 'bot',
         time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
-
       setMessages(prev => [...prev, botMsg]);
+    } finally {
       setIsTyping(false);
-    }, 1200);
+    }
   };
 
   const handleSuggestionClick = (s: { text: string; action: string }) => {

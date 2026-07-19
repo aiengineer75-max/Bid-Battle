@@ -66,7 +66,7 @@ export default function CreateAuctionView({ onAddAuction, onNavigateToView }: Cr
       gallery: [finalImage],
       condition: condition,
       seller: {
-        name: 'Rabia',
+        name: localStorage.getItem('bidbattle_username') || 'Rabia',
         rating: 4.8,
         avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=150',
         isVerified: true

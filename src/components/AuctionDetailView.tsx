@@ -23,6 +23,7 @@ interface AuctionDetailViewProps {
   onPlaceBid: (auctionId: string, amount: number) => void;
   onToggleWatchlist: (id: string) => void;
   triggerConfetti?: () => void;
+  username?: string;
 }
 
 export default function AuctionDetailView({
@@ -30,7 +31,8 @@ export default function AuctionDetailView({
   onBack,
   onPlaceBid,
   onToggleWatchlist,
-  triggerConfetti
+  triggerConfetti,
+  username = 'Rabia'
 }: AuctionDetailViewProps) {
   const [activeImage, setActiveImage] = useState(auction.image);
   const [bidAmount, setBidAmount] = useState<string>('');
@@ -131,7 +133,7 @@ export default function AuctionDetailView({
 
     const userBid: BidItem = {
       id: `u_${Date.now()}`,
-      bidderName: 'Rabia',
+      bidderName: username,
       amount: enteredAmount,
       time: 'Just now',
       isUser: true
@@ -182,7 +184,7 @@ export default function AuctionDetailView({
               <span className="text-[10px] uppercase tracking-[0.25em] text-emerald-400 font-bold bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">
                 Lot Won Successfully
               </span>
-              <h2 className="text-2xl font-display font-bold text-white mt-3">Congratulations, Rabia!</h2>
+              <h2 className="text-2xl font-display font-bold text-white mt-3">Congratulations, {username}!</h2>
               <p className="text-slate-400 text-xs leading-relaxed mt-1.5">
                 You won the bidding competition for <span className="text-blue-400 font-semibold">{auction.title}</span>!
               </p>
@@ -467,7 +469,7 @@ export default function AuctionDetailView({
             ) : (
               <div className="p-4 bg-slate-950/60 border border-slate-800 rounded-2xl text-center space-y-2">
                 <p className="text-xs font-semibold text-slate-400">Bidding has officially concluded for this lot.</p>
-                <p className="text-xs text-blue-400 font-bold">Winner: {userIsHighBidder ? 'Rabia (You!)' : 'Sarah Jenkins'}</p>
+                <p className="text-xs text-blue-400 font-bold">Winner: {userIsHighBidder ? `${username} (You!)` : 'Sarah Jenkins'}</p>
               </div>
             )}
           </div>

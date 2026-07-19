@@ -39,15 +39,40 @@ export default function App() {
   };
 
   // Router State
-  const [currentView, setCurrentView] = useState<string>('home'); // Starts at premium public Home landing page
+  const [currentView, setCurrentView] = useState<string>(() => {
+    try {
+      return localStorage.getItem('bidbattle_is_logged_in') === 'true' ? 'dashboard' : 'home';
+    } catch (e) {
+      return 'home';
+    }
+  });
   const [selectedAuctionId, setSelectedAuctionId] = useState<string | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(() => {
+    try {
+      return localStorage.getItem('bidbattle_is_logged_in') === 'true';
+    } catch (e) {
+      return false;
+    }
+  });
+  const [userEmail, setUserEmail] = useState<string | null>(() => {
+    try {
+      return localStorage.getItem('bidbattle_user_email');
+    } catch (e) {
+      return null;
+    }
+  });
+  const [username, setUsername] = useState<string>(() => {
+    try {
+      return localStorage.getItem('bidbattle_username') || 'Rabia';
+    } catch (e) {
+      return 'Rabia';
+    }
+  });
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
   const [currentTheme, setCurrentTheme] = useState<string>(() => {
     try {
-      return localStorage.getItem('auctionhub_theme') || 'violet';
+      return localStorage.getItem('bidbattle_theme') || 'violet';
     } catch (e) {
       return 'violet';
     }
@@ -55,7 +80,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('auctionhub_theme', currentTheme);
+      localStorage.setItem('bidbattle_theme', currentTheme);
     } catch (e) {
       // Ignore SecurityError or other storage errors in sandboxed environments
     }
@@ -121,7 +146,7 @@ export default function App() {
           bidsHistory: [
             {
               id: `bid_${Date.now()}`,
-              bidderName: 'Rabia',
+              bidderName: username,
               amount: amount,
               time: 'Just now',
               isUser: true
@@ -257,16 +282,40 @@ export default function App() {
   };
 
   // Auth Handling
-  const handleLoginSuccess = (email: string) => {
+  const handleLoginSuccess = (email: string, enteredUsername?: string) => {
     setIsLoggedIn(true);
     setUserEmail(email);
+    
+    let finalUsername = enteredUsername;
+    if (!finalUsername) {
+      const partBeforeAt = email.split('@')[0];
+      finalUsername = partBeforeAt.charAt(0).toUpperCase() + partBeforeAt.slice(1);
+    }
+    
+    setUsername(finalUsername);
     setCurrentView('dashboard'); // Takes them straight to dashboard after login!
+
+    try {
+      localStorage.setItem('bidbattle_is_logged_in', 'true');
+      localStorage.setItem('bidbattle_user_email', email);
+      localStorage.setItem('bidbattle_username', finalUsername);
+    } catch (e) {
+      // Ignore
+    }
   };
 
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserEmail(null);
+    setUsername('Rabia');
     setCurrentView('home');
+    try {
+      localStorage.removeItem('bidbattle_is_logged_in');
+      localStorage.removeItem('bidbattle_user_email');
+      localStorage.removeItem('bidbattle_username');
+    } catch (e) {
+      // Ignore
+    }
   };
 
   const handleSearch = (query: string) => {
@@ -278,6 +327,8 @@ export default function App() {
 
   const currentLoggedInUser = {
     ...mockUser,
+    username: username,
+    email: userEmail || mockUser.email,
     balance: walletBalance
   };
 
@@ -316,6 +367,7 @@ export default function App() {
             onPlaceBid={handlePlaceBid}
             onToggleWatchlist={handleToggleWatchlist}
             triggerConfetti={triggerConfetti}
+            username={username}
           />
         );
       case 'create':

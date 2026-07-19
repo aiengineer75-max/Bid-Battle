@@ -85,7 +85,7 @@ export default function HomeView({ auctions, onStartSignUp, onStartLogin }: Home
             </h1>
             
             <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-xl">
-              AuctionHub coordinates verified international experts, physical authenticity guarantees, and high-frequency live bidding systems to connect collectors with premium global assets securely.
+              BidBattle coordinates verified international experts, physical authenticity guarantees, and high-frequency live bidding systems to connect collectors with premium global assets securely.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
@@ -167,7 +167,7 @@ export default function HomeView({ auctions, onStartSignUp, onStartLogin }: Home
         <div className="text-center max-w-2xl mx-auto space-y-3">
           <h2 className="text-2xl md:text-3xl font-display font-bold text-white">Designed for Serious Collectors</h2>
           <p className="text-slate-400 text-xs md:text-sm leading-relaxed">
-            Every layer of the AuctionHub platform is engineered to establish secure, frictionless trust and premium item control.
+            Every layer of the BidBattle platform is engineered to establish secure, frictionless trust and premium item control.
           </p>
         </div>
 
@@ -229,8 +229,8 @@ export default function HomeView({ auctions, onStartSignUp, onStartLogin }: Home
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {[
-            { quote: "Authenticating my vintage Rolex online felt risky until I completed my first purchase with AuctionHub. The dual-expert physical certificates and premium temperature-controlled DHL shipment was impeccable.", author: "Amir Rafiq", role: "Private Watch Collector, Lahore" },
-            { quote: "As a gallery manager, listing high-value canvases requires robust, low-commission infrastructures. AuctionHub has the lowest seller commission rates (under 2%) and connects directly with verified high-frequency VIP buyers.", author: "Elena Rostova", role: "Elena Rostova Fine Art LLC" }
+            { quote: "Authenticating my vintage Rolex online felt risky until I completed my first purchase with BidBattle. The dual-expert physical certificates and premium temperature-controlled DHL shipment was impeccable.", author: "Amir Rafiq", role: "Private Watch Collector, Lahore" },
+            { quote: "As a gallery manager, listing high-value canvases requires robust, low-commission infrastructures. BidBattle has the lowest seller commission rates (under 2%) and connects directly with verified high-frequency VIP buyers.", author: "Elena Rostova", role: "Elena Rostova Fine Art LLC" }
           ].map((test, idx) => (
             <div key={idx} className="bg-[#111625] border border-slate-800/80 p-6 rounded-3xl space-y-4">
               <p className="text-xs text-slate-300 leading-relaxed italic">"{test.quote}"</p>
@@ -339,7 +339,7 @@ export default function HomeView({ auctions, onStartSignUp, onStartLogin }: Home
           </div>
         </div>
         <div className="max-w-7xl mx-auto pt-8 mt-8 border-t border-slate-900 text-center text-[10px] text-slate-600">
-          <p>© 2026 AuctionHub Inc. Handcrafted to full investor specifications. All mock records simulated locally.</p>
+          <p>© 2026 BidBattle Inc. Handcrafted to full investor specifications. All mock records simulated locally.</p>
         </div>
       </footer>
 

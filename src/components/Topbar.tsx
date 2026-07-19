@@ -360,7 +360,7 @@ export default function Topbar({
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-xs font-semibold text-slate-800 dark:text-white truncate">Auction Assistant AI</p>
-                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">Hi Rabia! Need help with your live bids?</p>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">Hi {user.username}! Need help with your live bids?</p>
                     <span className="text-[9px] text-slate-400 dark:text-slate-500">Just now</span>
                   </div>
                 </div>

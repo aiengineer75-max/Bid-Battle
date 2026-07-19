@@ -708,7 +708,7 @@ export const mockTransactions: Transaction[] = [
 
 export const mockFAQ = [
   { q: "How do I place a bid?", a: "To place a bid, navigate to any live auction page, enter your bid amount (must be equal to or greater than the current highest bid plus the minimum increment), and click 'Bid Now'. Your wallet must contain enough balance or credit card verification." },
-  { q: "How is delivery handled for luxury items?", a: "All high-value items won on AuctionHub are shipped via fully-insured premium shipping carriers (DHL Express, FedEx Priority) with end-to-end tracking, temperature-controlled transit packaging (if applicable), and signature confirmation upon delivery." },
+  { q: "How is delivery handled for luxury items?", a: "All high-value items won on BidBattle are shipped via fully-insured premium shipping carriers (DHL Express, FedEx Priority) with end-to-end tracking, temperature-controlled transit packaging (if applicable), and signature confirmation upon delivery." },
   { q: "What happens if I get outbid?", a: "You will immediately receive an email and a push notification with an Outbid Alert. You can click 'Bid Again' to increase your bid and stay in the running." },
   { q: "How does the AI Auction Assistant work?", a: "The AI Auction Assistant is an intelligent system trained to help you track shipment statuses, answer questions about payment methods, advise you on bid increments, and monitor auction ending times in real time." },
   { q: "Are items verified for authenticity?", a: "Yes. Every item in the Fashion, Art, and Collectibles category undergoes a double physical authentication check by verified international experts (Sotheby\'s partners, Rolex Certified Horologists, PSA staff) before shipping." }

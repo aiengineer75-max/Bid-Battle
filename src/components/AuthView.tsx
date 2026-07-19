@@ -3,7 +3,7 @@ import { Mail, Lock, Eye, EyeOff, Sparkles, CheckCircle, Smartphone, Chrome, Git
 import Logo from './Logo';
 
 interface AuthViewProps {
-  onLoginSuccess: (email: string) => void;
+  onLoginSuccess: (email: string, username?: string) => void;
   initialMode?: 'login' | 'signup';
 }
 
@@ -37,13 +37,11 @@ export default function AuthView({ onLoginSuccess, initialMode = 'login' }: Auth
     setValidationError(null);
     setSuccessMsg(null);
 
-    // Form validations
-    if (!email.trim() || !email.includes('@')) {
-      setValidationError('Please enter a valid email address.');
-      return;
-    }
-
     if (mode === 'signup') {
+      if (!email.trim() || !email.includes('@')) {
+        setValidationError('Please enter a valid email address.');
+        return;
+      }
       if (!username.trim()) {
         setValidationError('Please enter a username.');
         return;
@@ -56,22 +54,37 @@ export default function AuthView({ onLoginSuccess, initialMode = 'login' }: Auth
         setValidationError('Password must be at least 6 characters.');
         return;
       }
-    }
+      onLoginSuccess(email, username);
+    } else if (mode === 'login') {
+      if (!email.trim()) {
+        setValidationError('Please enter a username or email address.');
+        return;
+      }
+      if (password.length < 4) {
+        setValidationError('Password must be at least 4 characters.');
+        return;
+      }
 
-    if (mode === 'forgot') {
+      let finalEmail = email;
+      let finalUsername: string | undefined = undefined;
+      if (!email.includes('@')) {
+        finalUsername = email;
+        finalEmail = `${email.toLowerCase()}@example.com`;
+      }
+      onLoginSuccess(finalEmail, finalUsername);
+    } else if (mode === 'forgot') {
+      if (!email.trim() || !email.includes('@')) {
+        setValidationError('Please enter a valid email address.');
+        return;
+      }
       setSuccessMsg('A password reset link has been dispatched to your email.');
       setTimeout(() => setMode('login'), 2500);
-      return;
     }
-
-    // Success Authentication login redirect!
-    // We log in the user Rabia by default so they see all dashboard mocks filled out!
-    onLoginSuccess(email || 'quee007ina@gmail.com');
   };
 
   const handleSocialLogin = () => {
     // Simulated instant Google / GitHub sign-on
-    onLoginSuccess('quee007ina@gmail.com');
+    onLoginSuccess('quee007ina@gmail.com', 'Rabia');
   };
 
   return (
@@ -125,15 +138,17 @@ export default function AuthView({ onLoginSuccess, initialMode = 'login' }: Auth
           )}
 
           <div className="space-y-1.5">
-            <label className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">Email Address *</label>
+            <label className="text-[10px] uppercase font-bold tracking-wider text-slate-400 block">
+              {mode === 'login' ? 'Username or Email Address *' : 'Email Address *'}
+            </label>
             <div className="relative flex items-center">
               <Mail className="absolute left-3.5 h-4 w-4 text-slate-500" />
               <input
-                type="email"
+                type={mode === 'login' ? 'text' : 'email'}
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="Rabia@example.com"
+                placeholder={mode === 'login' ? 'e.g. Rabia or rabia@example.com' : 'rabia@example.com'}
                 className="w-full bg-slate-950 border border-slate-800 focus:border-blue-500 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white focus:outline-none placeholder-slate-600"
               />
             </div>
@@ -260,7 +275,7 @@ export default function AuthView({ onLoginSuccess, initialMode = 'login' }: Auth
         <div className="text-center text-xs pt-2">
           {mode === 'login' && (
             <p className="text-slate-500">
-              New to AuctionHub?{' '}
+              New to BidBattle?{' '}
               <button onClick={() => setMode('signup')} className="text-blue-400 hover:text-blue-300 font-semibold cursor-pointer">
                 Create account
               </button>

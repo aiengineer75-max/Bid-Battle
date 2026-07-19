@@ -18,7 +18,13 @@ export default function AdminPanelView({
   const pendingApprovals = auctions.filter(a => a.views === 12 && a.likes === 3); // Simulated newly created user lots!
 
   const mockUsersList = [
-    { name: 'Rabia', email: 'quee007ina@gmail.com', status: 'Premium Member', rating: '4.8 ★', joined: 'May 11, 2024' },
+    {
+      name: localStorage.getItem('bidbattle_username') || 'Rabia',
+      email: localStorage.getItem('bidbattle_user_email') || 'quee007ina@gmail.com',
+      status: 'Premium Member',
+      rating: '4.8 ★',
+      joined: 'May 11, 2024'
+    },
     { name: 'Sarah Jenkins', email: 'sarah.j@gmail.com', status: 'Standard User', rating: '4.9 ★', joined: 'Feb 15, 2024' },
     { name: 'Ahmad Khan', email: 'ahmadk@outlook.com', status: 'Premium Seller', rating: '4.7 ★', joined: 'Mar 22, 2024' }
   ];

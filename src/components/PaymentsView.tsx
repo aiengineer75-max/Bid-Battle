@@ -215,7 +215,7 @@ export default function PaymentsView({
                       <input
                         type="text"
                         required
-                        placeholder="Rabia"
+                        placeholder={localStorage.getItem('bidbattle_username') || 'Rabia'}
                         className="w-full bg-slate-950 border border-slate-800 focus:border-indigo-500 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-600 focus:outline-none"
                       />
                     </div>

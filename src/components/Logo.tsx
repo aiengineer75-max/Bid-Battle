@@ -109,7 +109,7 @@ export default function Logo({ className = '', showText = true, size = 'md' }: L
       {showText && (
         <div className="flex flex-col">
           <span className={`font-display font-bold tracking-wider leading-none ${currentSize.text} text-white`}>
-            AUCTION<span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">HUB</span>
+            BID<span className="text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400">BATTLE</span>
           </span>
           <span className="text-[9px] uppercase tracking-[0.25em] text-slate-400 font-medium font-sans">
             Bid <span className="text-indigo-400">•</span> Win <span className="text-indigo-400">•</span> Own

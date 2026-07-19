@@ -88,12 +88,12 @@ export default function Sidebar({
             className="w-11 h-11 bg-primary-accent text-white rounded-xl flex items-center justify-center font-extrabold text-xl shrink-0 hover:scale-105 transition-transform"
             style={{ boxShadow: '0 0 20px var(--theme-accent-glow-strong)' }}
           >
-            A
+            B
           </div>
           {isOpen && (
             <div className="flex flex-col select-none">
               <span className="font-extrabold text-base tracking-tight text-white">
-                Auction<span className="text-primary-accent">Hub</span>
+                Bid<span className="text-primary-accent">Battle</span>
               </span>
               <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest -mt-0.5">Premium Platform</span>
             </div>
@@ -101,7 +101,7 @@ export default function Sidebar({
           {/* Tooltip (only when narrow) */}
           {!isOpen && (
             <div className="absolute left-16 top-2 bg-slate-900 border border-slate-800 text-white px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all pointer-events-none z-50">
-              AuctionHub
+              BidBattle
             </div>
           )}
         </div>
